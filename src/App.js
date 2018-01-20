@@ -2,39 +2,47 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Person from './Person/Person';
+import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
   state = {
     persons: [
-      { name: "Hao", age: 28 },
-      { name: "Ashsh", age: 29 },
-      { name: "Rajat", age: 30 }
+      { id: "asdf1asfafsa", name: "Hao", age: 28 },
+      { id: "asjsdff123afsa", name: "Ashsh", age: 29 },
+      { id: "aa123afsa", name: "Rajat", age: 30 }
     ],
     showPersons: false
   }
 
-  switchNameHandler = () => {
-    console.log('switchNameHandler was clicked!');
-    //DON'T DO THIS this.state.persons[0].age = 100;
-    this.setState({
-      persons: [
-        { name: "Hao Wu", age: 100 },
-        { name: "Ashsh", age: 29 },
-        { name: "Rajat", age: 30 }
-      ]
-    })
+  deletePersonHandler = (personIndex) => {
+    //const persons = this.state.persons; //pass by reference. instead of that. make a copy for that
+
+    //const persons = this.state.persons.slice();//alternative way is use spread
+
+    const persons = [...this.state.persons];
+
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
   }
 
-  changeNameHandler = (event) => {
+  changeNameHandler = (event, id) => {
     console.log('changeNameHandler was changed!');
     //DON'T DO THIS this.state.persons[0].age = 100;
-    this.setState({
-      persons: [
-        { name: "hao", age: 18 },
-        { name: event.target.value, age: 29 },
-        { name: "Rajat", age: 30 }
-      ]
+
+    //get and update target person
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
     })
+    const person = { ...this.state.persons[personIndex] };
+    person.name = event.target.value;
+
+    //update persons
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({
+      persons: persons
+    });
   }
 
   togglePersons = () => {
@@ -44,40 +52,53 @@ class App extends Component {
   }
 
   render() {
-
     const inlineStyle = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
       border: '1px solid blue',
-      cursor: 'pointer'
+      color: 'white',
+      cursor: 'pointer',
+      ':hover': {
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      }
     }
+
+    let persons = null;
+
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) => {
+            return <Person
+              name={person.name}
+              age={person.age}
+              click={() => this.deletePersonHandler(index)}
+              key={person.id}
+              changeName={(event) => this.changeNameHandler(event, person.id)}
+            />
+          })}
+        </div>
+      )
+      inlineStyle.backgroundColor = 'red';
+      inlineStyle[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'black'
+      }
+    }
+
     return (
-
-      /* <div className="App">
-       <header className="App-header">
-         <img src={logo} className="App-logo" alt="logo" />
-         <h1 className="App-title">Welcome to React</h1>
-       </header>
-       <p className="App-intro">
-         To get started, edit <code>src/App.js</code> and save to reload.
-       </p>
-     </div>  */
-      <div className="app">
-        <h1>Hi, I'm a React</h1>
-        <button onClick={this.togglePersons} style={inlineStyle}>
-          Toggle Persons
+      <StyleRoot>
+        <div className="app">
+          <h1>SalesBuilder</h1>
+          <button onClick={this.togglePersons} style={inlineStyle}>
+            Toggle Persons
         </button>
-        {this.state.showPersons === true ?
-          <div>
-            <Person name={this.state.persons[0].name} age={this.state.persons[0].age}>Loading...</Person>
-            <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler} changeName={this.changeNameHandler} />
-            <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
-          </div> : null
-        }
-
-      </div>
+          {persons}
+        </div>
+      </StyleRoot>
     );
     //return React.createElement('div',null,React.createElement('h1',null, 'Hi, I\'m a React'));
   }
 }
 
-export default App;
+export default Radium(App);

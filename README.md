@@ -1,4 +1,3 @@
-# react-udemy
 ### 3.29 Understanding JSX ###
 
 	return React.createElement('div',null,React.createElement('h1',null, 'Hi, I\'m a React'));
@@ -137,7 +136,154 @@ The instructions are:
 		</div> : null
 	}
 
-### Section 4, Lecture 50 Handling Dynamic Content "The JavaScript Way" ###
+### Section 4, Lecture 50 Handling Dynamic Content "The JavaScript Way"
+
+
+### Section 4, Lecture 51 Outputting Lists (Intro)
+
+	persons = (
+		<div>
+		  {this.state.persons.map(person=>{
+		    return <Person name={person.name} age={person.age} />
+		  })}
+		  <Person name={this.state.persons[0].name} age={this.state.persons[0].age}>Loading...</Person>
+		  <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler} changeName={this.changeNameHandler} />
+		  <Person name={this.state.persons[2].name} age={this.state.persons[2].age} />
+		</div>
+	)
+
+### Section 4, Lecture 52 Lists & State
+
+### Section 4, Lecture 54 Updating State Immutably
+
+###  Assignment 2: Time to Practice - Lists & Conditionals 
+
+Follow the instructions explained in the problem video and try to implement a solution on your own. Compare it with my solution (video + downloadable files) thereafter.
+
+You'll also need to transform a string into a real array and then join it back into a string again to complete task 5 of the assignment.
+
+You can split a string into an array of its characters with the split('')  method. By passing just an empty string, it's split after every character.
+
+You may then re-create a string from that array by using join('')  - again, joining with an empty string as a separator.
+
+
+
+
+###  Section 4, Lecture 58 Useful Resources & Links
+
+
+[https://reactjs.org/docs/conditional-rendering.html](https://reactjs.org/docs/conditional-rendering.html "Conditional Rendering")
+
+[https://reactjs.org/docs/lists-and-keys.html](https://reactjs.org/docs/lists-and-keys.html "Lists and Keys")
+
+
+## Section: 5 Styling React Components & Elements
+
+### Section 5, Lecture 59 Module Introduction
+
+### Section 5, Lecture 61 Setting Styles Dynamically
+
+### Section 5, Lecture 62 Setting Class Names Dynamically
+
+
+### Section 5, Lecture 63 Adding and Using Radium
+
+use sudo selector like :hover
+
+	npm install radium --save
+	
+	import Radium from 'radium';
+	export default Radium(App); //higher order component.
+
+
+
+can use on both standard component and functional component.
+
+
+
+### Section 5, Lecture 64 Using Radium for Media Queries
+
+App.js
+
+	import Radium, { StyleRoot } from 'radium';
+	
+	<StyleRoot></StyleRoot>//wra all return jsx
+
+
+### Section 5, Lecture 65 Enabling & Using CSS Modules
+
+	npm run eject
+
+	config/webpack.config.dev/prod
+
+
+### Section 5, Lecture 69 Useful Resources & Links
+
+
+Using CSS Modules in create-react-app Projects: https://medium.com/nulogy/how-to-use-css-modules-with-create-react-app-9e44bec2b5c2
+
+More information about CSS Modules: https://github.com/css-modules/css-modules
+
+
+
+## Section: 6 Debugging React Apps
+
+### Section 6, Lecture 70 Module Introduction
+
+### Section 6, Lecture 71 Understanding Error Messages
+
+### Section 6, Lecture 72 Finding Logical Errors by using Dev Tools & Sourcemaps
+
+Chrome debug mode in the source code
+
+
+### Section 6, Lecture 73 Working with the React Developer Tools
+
+
+### Section 6, Lecture 74 Using Error Boundaries (React 16+)
+
+**How to understand high order component?**
+
+
+### Section 6, Lecture 76 Useful Resources & Links
+
+Error Boundaries: https://reactjs.org/docs/error-boundaries.html
+Chrome Devtool Debugging: https://developers.google.com/web/tools/chrome-devtools/javascript/
+
+
+
+## Section: 7 Diving Deeper into Components & React Internals
+
+
+### Section 7, Lecture 78 A Better Project Structure
+
+	src
+		assets
+		components
+			Cockpit
+			Persons
+				Person
+		containers
+		index.js
+		index.css
+
+
+
+### Section 7, Lecture 78 A Better Project Structure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
